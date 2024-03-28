@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     private static InputManager _instance;
     public static InputManager Instance { get { return _instance; } }
 
-    private PlayerControls playerControls;
+    public PlayerControls playerControls;
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -40,5 +40,25 @@ public class InputManager : MonoBehaviour
     public bool GetJumpInput()
     {
         return playerControls.Player.Jump.triggered;
+    }
+    public bool GetEBtnPressed()
+    {
+        return playerControls.Player.TranlateShelfE.triggered;
+    }
+    public bool GetQBtnPressed()
+    {
+        return playerControls.Player.TranlateShelfQ.triggered;
+    }
+    public bool GetGBtnPressed()
+    {
+        return playerControls.Player.TranlateShelfG.triggered;
+    }
+    public Vector2 GetMousePosition()
+    {
+        return playerControls.Player.Mouse.ReadValue<Vector2>();
+    }
+    public bool GetMouseLeftClick()
+    {
+        return playerControls.Player.MouseLeftBtn.triggered;
     }
 }

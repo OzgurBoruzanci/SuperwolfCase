@@ -53,6 +53,51 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TranlateShelfE"",
+                    ""type"": ""Button"",
+                    ""id"": ""dc48d853-ee67-4169-820e-a4da3d3a9f89"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TranlateShelfQ"",
+                    ""type"": ""Button"",
+                    ""id"": ""9455acdb-9a89-450f-b5eb-9a38f5346d91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TranlateShelfG"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c755b0b-7a2e-44c4-9bf1-6120dad9839f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""75d3b0ac-6015-4acf-865d-1429805ec7fa"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseLeftBtn"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bd095f9-1a81-4e2b-991a-367efd23e063"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,6 +188,61 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25075e8a-7c69-4516-8093-e3811777bb33"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TranlateShelfE"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fb82845-6807-4050-8b57-86fe17da2ce8"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TranlateShelfQ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3130d421-873d-4e1b-bff6-8bd2bf8522b9"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": ""Hold(duration=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TranlateShelfG"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecc5cb93-34c5-4790-a62d-542f09f8d8f2"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94e38aae-1778-4251-9774-845f1fa9c049"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseLeftBtn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -154,6 +254,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_TranlateShelfE = m_Player.FindAction("TranlateShelfE", throwIfNotFound: true);
+        m_Player_TranlateShelfQ = m_Player.FindAction("TranlateShelfQ", throwIfNotFound: true);
+        m_Player_TranlateShelfG = m_Player.FindAction("TranlateShelfG", throwIfNotFound: true);
+        m_Player_Mouse = m_Player.FindAction("Mouse", throwIfNotFound: true);
+        m_Player_MouseLeftBtn = m_Player.FindAction("MouseLeftBtn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +323,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_TranlateShelfE;
+    private readonly InputAction m_Player_TranlateShelfQ;
+    private readonly InputAction m_Player_TranlateShelfG;
+    private readonly InputAction m_Player_Mouse;
+    private readonly InputAction m_Player_MouseLeftBtn;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -225,6 +335,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @TranlateShelfE => m_Wrapper.m_Player_TranlateShelfE;
+        public InputAction @TranlateShelfQ => m_Wrapper.m_Player_TranlateShelfQ;
+        public InputAction @TranlateShelfG => m_Wrapper.m_Player_TranlateShelfG;
+        public InputAction @Mouse => m_Wrapper.m_Player_Mouse;
+        public InputAction @MouseLeftBtn => m_Wrapper.m_Player_MouseLeftBtn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -243,6 +358,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @TranlateShelfE.started += instance.OnTranlateShelfE;
+            @TranlateShelfE.performed += instance.OnTranlateShelfE;
+            @TranlateShelfE.canceled += instance.OnTranlateShelfE;
+            @TranlateShelfQ.started += instance.OnTranlateShelfQ;
+            @TranlateShelfQ.performed += instance.OnTranlateShelfQ;
+            @TranlateShelfQ.canceled += instance.OnTranlateShelfQ;
+            @TranlateShelfG.started += instance.OnTranlateShelfG;
+            @TranlateShelfG.performed += instance.OnTranlateShelfG;
+            @TranlateShelfG.canceled += instance.OnTranlateShelfG;
+            @Mouse.started += instance.OnMouse;
+            @Mouse.performed += instance.OnMouse;
+            @Mouse.canceled += instance.OnMouse;
+            @MouseLeftBtn.started += instance.OnMouseLeftBtn;
+            @MouseLeftBtn.performed += instance.OnMouseLeftBtn;
+            @MouseLeftBtn.canceled += instance.OnMouseLeftBtn;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -256,6 +386,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @TranlateShelfE.started -= instance.OnTranlateShelfE;
+            @TranlateShelfE.performed -= instance.OnTranlateShelfE;
+            @TranlateShelfE.canceled -= instance.OnTranlateShelfE;
+            @TranlateShelfQ.started -= instance.OnTranlateShelfQ;
+            @TranlateShelfQ.performed -= instance.OnTranlateShelfQ;
+            @TranlateShelfQ.canceled -= instance.OnTranlateShelfQ;
+            @TranlateShelfG.started -= instance.OnTranlateShelfG;
+            @TranlateShelfG.performed -= instance.OnTranlateShelfG;
+            @TranlateShelfG.canceled -= instance.OnTranlateShelfG;
+            @Mouse.started -= instance.OnMouse;
+            @Mouse.performed -= instance.OnMouse;
+            @Mouse.canceled -= instance.OnMouse;
+            @MouseLeftBtn.started -= instance.OnMouseLeftBtn;
+            @MouseLeftBtn.performed -= instance.OnMouseLeftBtn;
+            @MouseLeftBtn.canceled -= instance.OnMouseLeftBtn;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -278,5 +423,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnTranlateShelfE(InputAction.CallbackContext context);
+        void OnTranlateShelfQ(InputAction.CallbackContext context);
+        void OnTranlateShelfG(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
+        void OnMouseLeftBtn(InputAction.CallbackContext context);
     }
 }

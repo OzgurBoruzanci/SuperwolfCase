@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        MovePlayer();
-        JumpPlayer();
+        Move();
+        Jump();
     }
     public void ChangeState(IState newState)
     {
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         currentState = newState;
         currentState.EnterState(this);
     }
-    private void MovePlayer()
+    private void Move()
     {
         Vector2 vector2 = inputManager.GetMovementInput();
         Vector3 move = new Vector3(vector2.x, 0, vector2.y);
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             IsWalking = false;
         }
     }
-    private void JumpPlayer()
+    private void Jump()
     {
         if (inputManager.GetJumpInput() && groundedPlayer)
         {
