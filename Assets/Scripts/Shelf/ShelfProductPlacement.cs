@@ -1,62 +1,77 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShelfProductPlacement : MonoBehaviour
 {
-    public GameObject Product; /*{ get; set; }*/ 
+    public bool IsShelFull { get=>isShelFull; }
+    public GameObject Product { get; set; }
     private List<GameObject> products = new List<GameObject>();
-    private Renderer objectRenderer;
-    private Bounds objectBounds;
-    private float xSize;
-    private float zSize;
-    private void Start()
-    {
-        BoundsCalculator();
-    }
+    private Vector3 pos;
+    private bool isShelFull;
+    private float xProductSize;
+    private float zProductSize;
+    private Vector3 initialPosition;
+    private Vector3 finalPosition;
+
     public void PlaceProduct(List<GameObject> productList)
     {
-        Vector3 pos = Camera.main.transform.position;
-        pos.y -= 0.5f;
-
-        Bounds productBounds = Product.GetComponentInChildren<Renderer>().bounds;
-        float xProductSize = productBounds.size.x;
-        float zProductSize = productBounds.size.z;
-
-        Vector3 initialPosition = new Vector3(transform.position.x - xSize / 2, transform.position.y, transform.position.z - zSize / 2);
-        Vector3 finalPosition = new Vector3(transform.position.x + xSize / 2, transform.position.y, transform.position.z + zSize / 2);
-        var productPosition=new Vector3(initialPosition.x+xProductSize/2,initialPosition.y,initialPosition.z+zProductSize/2);
-        if (CheckProductType(productList[0]))
+        if (!isShelFull)
         {
-            products = productList;
-            for (int i = 0; i < products.Count; i++)
+            GetProductAndShelfSizes();
+            var sequence = DOTween.Sequence();
+            var productPosition = new Vector3(initialPosition.x - xProductSize / 2, transform.position.y, initialPosition.z - zProductSize / 2);
+            if (CheckProductType(productList[0]))
             {
-                products[i].transform.position = pos;
-                products[i].transform.parent = transform;
-                products[i].transform.DOMove(productPosition, 0.5f).SetEase(Ease.OutQuint);
-                if (productPosition.x < finalPosition.x)
+                for (int i = 0; i < productList.Count; i++)
                 {
-                    productPosition.z += zProductSize;
-                    if (productPosition.z > finalPosition.z)
+                    productList[i].transform.localPosition = pos;
+                    productList[i].transform.parent = transform.parent;
+                    products.Add(productList[i]);
+                    sequence.Append(productList[i].transform.DOLocalMove(productPosition, 0.5f).SetEase(Ease.OutQuint));
+                    productList[i].transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                    products.Add(productList[i]);
+                    
+                    if (productPosition.x > finalPosition.x)
                     {
-                        productPosition.x += xProductSize;
-                        productPosition.z = initialPosition.z + zProductSize / 2;
+                        productPosition.z -= zProductSize;
+                        if (productPosition.z < finalPosition.z)
+                        {
+                            productPosition.x -= xProductSize;
+                            productPosition.z = initialPosition.z - zProductSize / 2;
+                        }
                     }
+                    if (productPosition.x <= finalPosition.x && productPosition.z >= finalPosition.z)
+                    {
+                        isShelFull = true;
+                        break;
+                    }
+                }
+                sequence.Play();
+                foreach (GameObject product in products)
+                {
+                    productList.Remove(product);
                 }
             }
         }
     }
 
-    private void BoundsCalculator()
-    {
-        objectRenderer = GetComponent<Renderer>();
-        objectBounds = objectRenderer.bounds;
-        xSize = objectBounds.size.x;
-        zSize = objectBounds.size.z;
-    }
     private bool CheckProductType(GameObject product)
     {
         return product == Product;
+    }
+    private void GetProductAndShelfSizes()
+    {
+        pos = Camera.main.transform.position;
+        pos.y -= 0.5f;
+        pos = transform.InverseTransformPoint(pos);
+
+        xProductSize = Product.transform.GetChild(0).localScale.x + 0.05f;
+        zProductSize = Product.transform.GetChild(0).localScale.z + 0.05f;
+
+        initialPosition = transform.GetChild(0).localPosition;
+        finalPosition = transform.GetChild(1).localPosition;
     }
 }

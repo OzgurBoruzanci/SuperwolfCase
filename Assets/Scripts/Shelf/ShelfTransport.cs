@@ -9,6 +9,7 @@ public class ShelfTransport : MonoBehaviour
     private bool isDragging = false;
     private bool canDrag;
     private InputManager inputManager;
+
     private void Start()
     {
         inputManager = InputManager.Instance;
